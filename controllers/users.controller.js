@@ -33,6 +33,16 @@ router.get('/find_todo/users/:email/actions/:action', function (req, res) {
     });
 });
 
+router.delete('/find_todo/:id', function (req, res) {
+    ToDo.findByIdAndRemove(req.params.id, function (err, result) {
+        if (!err) {
+            return res.status(200).json(result);
+        } else {
+            return res.send(err); // 500 error
+        }
+    });
+});
+
 router.get('/:email', function (req, res) {
     User.findByEmail(req.params.email, function (err, result) {
         if (!err) {

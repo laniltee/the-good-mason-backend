@@ -63,6 +63,16 @@ router.get('/comments_user/:email', function (req, res) {
     });
 });
 
+router.delete('/comments_user/:id', function (req, res) {
+    Comment.findByIdAndRemove(req.params.id, function (err, result) {
+        if (!err) {
+            return res.json(result);
+        } else {
+            return res.send(err); // 500 error
+        }
+    });
+});
+
 router.get('/services/:service', function (req, res) {
     Provider.findByService(req.params.service, function (err, result) {
         if (!err) {

@@ -54,6 +54,9 @@ ToDoSchema.statics = {
     },
     findByEmailAndAction: function (user, action, callback) {
         this.find({ 'user': user, 'action': action }, callback);
+    },
+    removeById: function (id, callback) {
+        this.remove({ '_id': id }, callback);
     }
 }
 
