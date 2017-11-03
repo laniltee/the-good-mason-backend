@@ -23,6 +23,16 @@ router.post('/todo', function (req, res) {
     });
 });
 
+router.get('/find_todo/users/:email/actions/:action', function (req, res) {
+    ToDo.findByEmailAndAction(req.params.email, req.params.action, function (err, result) {
+        if (!err) {
+            return res.status(200).json(result);
+        } else {
+            return res.send(err); // 500 error
+        }
+    });
+});
+
 router.get('/:email', function (req, res) {
     User.findByEmail(req.params.email, function (err, result) {
         if (!err) {

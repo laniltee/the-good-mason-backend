@@ -8,6 +8,7 @@ var ToDoSchema = new Schema({
     date: { type: Number },
     action: { type: String },
     provider: { type: String },
+    provider_id: { type: String },
     user: { type: String },
     satisfied: { type: Boolean }
 });
@@ -52,7 +53,7 @@ ToDoSchema.statics = {
         this.find({ 'user': query }, callback);
     },
     findByEmailAndAction: function (user, action, callback) {
-        this.find({ 'user': query, 'action': action }, callback);
+        this.find({ 'user': user, 'action': action }, callback);
     }
 }
 
