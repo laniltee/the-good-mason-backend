@@ -53,6 +53,16 @@ router.post('/comments', function (req, res) {
     });
 });
 
+router.get('/comments_user/:email', function (req, res) {
+    Comment.findByEmail(req.params.email, function (err, result) {
+        if (!err) {
+            return res.json(result);
+        } else {
+            return res.send(err); // 500 error
+        }
+    });
+});
+
 router.get('/services/:service', function (req, res) {
     Provider.findByService(req.params.service, function (err, result) {
         if (!err) {

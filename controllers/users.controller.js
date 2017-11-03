@@ -1,9 +1,20 @@
 var express = require('express'),
     router = express.Router(),
-    User = require('../models/user.model').User
+    User = require('../models/user.model').User,
+    ToDo = require('../models/todo.model').ToDo;
 
 router.post('/', function (req, res) {
     User.create(req.body, function (err, result) {
+        if (!err) {
+            return res.status(201).json(result);
+        } else {
+            return res.send(err); // 500 error
+        }
+    });
+});
+
+router.post('/todo', function (req, res) {
+    ToDo.create(req.body, function (err, result) {
         if (!err) {
             return res.status(201).json(result);
         } else {

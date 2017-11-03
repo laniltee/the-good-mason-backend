@@ -48,6 +48,9 @@ CommentSchema.statics = {
     findByProvider: function (query, callback) {
         this.find({ 'provider': query }, callback);
     },
+    findByEmail: function (query, callback) {
+        this.find({ 'user': query }, callback);
+    }
 }
 
 var comment = mongoose.model('comment', CommentSchema);

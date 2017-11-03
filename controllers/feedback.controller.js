@@ -22,5 +22,15 @@ router.get('/', function (req, res) {
     });
 });
 
+router.get('/users/:email', function (req, res) {
+    Feedback.findByEmail(req.params.email, function (err, result) {
+        if (!err) {
+            return res.json(result);
+        } else {
+            return res.send(err); // 500 error
+        }
+    });
+});
+
 
 module.exports = router;

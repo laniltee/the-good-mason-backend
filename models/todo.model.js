@@ -4,53 +4,61 @@ var mongoose = require('mongoose'),
     db = require('../config/db'),
     Schema = mongoose.Schema;
 
-var FeedbackSchema = new Schema({
-    rating: { type: String },
-    description: { type: String },
-    email: { type: String },
-    createdAt: { type: Number }
+var ToDoSchema = new Schema({
+    date: { type: Number },
+    action: { type: String },
+    provider: { type: String },
+    user: { type: String },
+    satisfied: { type: Boolean }
 });
 
-FeedbackSchema.statics = {
+ToDoSchema.statics = {
 
     /**
       findOnefeedback. return the one feedback object.
       @param id: get id to find one feedback by id.
       @param callback: callback of this form.
     */
-    get: function(query, callback) {
+    get: function (query, callback) {
         this.findOne(query, callback);
     },
     /**
       findfeedback. return the feedback objects.
       @param callback: callback of this form.
     */
-    getAll: function(query, callback) {
+    getAll: function (query, callback) {
         this.find(query, callback);
     },
-    findByEmail: function (query, callback) {
-        this.find({ 'email': query }, callback);
-    },
+
     /**
       updatefeedback. return the create feedback object result.
       @param updateData: updateData is use to update feedback w.r.t id.
       @param callback: callback of this form.
     */
-    updateById: function(id, updateData, callback) {
+    updateById: function (id, updateData, callback) {
         this.update(id, { $set: updateData }, callback);
     },
-    remove: function(removeData, callback) {
+    remove: function (removeData, callback) {
         this.remove(removeData, callback);
     },
-    create: function(data, callback) {
+    create: function (data, callback) {
         var feedback = new this(data);
         feedback.save(callback);
+    },
+    findByProvider: function (query, callback) {
+        this.find({ 'provider': query }, callback);
+    },
+    findByEmail: function (query, callback) {
+        this.find({ 'user': query }, callback);
+    },
+    findByEmailAndAction: function (user, action, callback) {
+        this.find({ 'user': query, 'action': action }, callback);
     }
 }
 
-var feedback = mongoose.model('feedback', FeedbackSchema);
+var todo = mongoose.model('todo', ToDoSchema);
 
 /** export schema */
 module.exports = {
-    Feedback: feedback
+    ToDo: todo
 };
